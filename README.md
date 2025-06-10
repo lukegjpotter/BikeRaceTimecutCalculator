@@ -28,7 +28,7 @@ You should get a response that looks like this:
 
     {
       "maximumGapToWinner": "00:45:00",
-      "maximumRaceTime": "04:30:00",
+      "maximumRaceDuration": "04:30:00",
       "errorMessage": ""
     }
 

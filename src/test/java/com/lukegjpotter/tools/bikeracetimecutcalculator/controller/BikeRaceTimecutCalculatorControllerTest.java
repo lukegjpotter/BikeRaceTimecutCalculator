@@ -38,22 +38,54 @@ class BikeRaceTimecutCalculatorControllerTest {
                 .statusCode(HttpStatus.SC_OK)
                 .body(
                         "maximumGapToWinner", is("00:45:00"),
-                        "maximumRaceTime", is("04:30:00"),
+                        "maximumRaceDuration", is("04:30:00"),
                         "errorMessage", emptyString());
     }
 
     @Test
-    void testCalculate_goldenPath1() {
+    void testCalculate_knownRaceData_Dauphine() {
         given()
                 .contentType(ContentType.JSON)
-                .body(new RaceFinishRequestRecord("03:45:00", 12.0))
+                .body(new RaceFinishRequestRecord("04:34:10", 10))
                 .when()
                 .post("/calculate")
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .body(
-                        "maximumGapToWinner", is("00:45:00"),
-                        "maximumRaceTime", is("04:30:00"),
+                        "maximumGapToWinner", is("00:27:25"),
+                        "maximumRaceDuration", is("05:01:35"),
                         "errorMessage", emptyString());
     }
+
+    @Test
+    void testCalculate_knownRaceData_Cameroun() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new RaceFinishRequestRecord("01:58:58", 15))
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(
+                        "maximumGapToWinner", is("00:17:50"),
+                        "maximumRaceDuration", is("02:16:48"),
+                        "errorMessage", emptyString());
+    }
+
+    @Test
+    void testCalculate_knownRaceData_AntwerpPortEpic() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new RaceFinishRequestRecord("04:12:09", 8))
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .body(
+                        "maximumGapToWinner", is("00:20:10"),
+                        "maximumRaceDuration", is("04:32:19"),
+                        "errorMessage", emptyString());
+    }
+
+    // ToDo tests: nulls, negative values, parsing issues,
 }
