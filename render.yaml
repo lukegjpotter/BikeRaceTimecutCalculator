@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: BikeRaceTimecutCalculator
+    runtime: docker
+    repo: https://github.com/lukegjpotter/BikeRaceTimecutCalculator
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    region: frankfurt
+    plan: free
+    healthCheckPath: /health
+    numInstances: 1
+    autoDeploy: false
+version: "1"
