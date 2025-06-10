@@ -87,5 +87,35 @@ class BikeRaceTimecutCalculatorControllerTest {
                         "errorMessage", emptyString());
     }
 
-    // ToDo tests: nulls, negative values, parsing issues,
+    @Test
+    void testCalculate_parsingExceptions_AssertionError() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new RaceFinishRequestRecord("44:12:09", 8))
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "maximumGapToWinner", nullValue(),
+                        "maximumRaceDuration", nullValue(),
+                        "errorMessage", is("Text '44:12:09' could not be parsed: Invalid value for HourOfDay (valid values 0 - 23): 44"));
+    }
+
+    @Test
+    void testCalculate_parsingExceptions_Text() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new RaceFinishRequestRecord("Liverpool", 8))
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "maximumGapToWinner", nullValue(),
+                        "maximumRaceDuration", nullValue(),
+                        "errorMessage", is("Text 'Liverpool' could not be parsed at index 0"));
+    }
+
+    // ToDo tests: nulls, negative values
 }
