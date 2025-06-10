@@ -117,5 +117,35 @@ class BikeRaceTimecutCalculatorControllerTest {
                         "errorMessage", is("Text 'Liverpool' could not be parsed at index 0"));
     }
 
-    // ToDo tests: nulls, negative values
+    @Test
+    void testCalculate_negativeNumbers_raceDuration() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new RaceFinishRequestRecord("-04:12:09", 8))
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "maximumGapToWinner", nullValue(),
+                        "maximumRaceDuration", nullValue(),
+                        "errorMessage", is("Text '-04:12:09' could not be parsed at index 0"));
+    }
+
+    @Test
+    void testCalculate_negativeNumbers_percentageTimeCut() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new RaceFinishRequestRecord("04:12:09", -8))
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "maximumGapToWinner", nullValue(),
+                        "maximumRaceDuration", nullValue(),
+                        "errorMessage", is("The value for the percentageTimeCut must be positive, you supplied -8."));
+    }
+
+    // ToDo tests: nulls
 }
