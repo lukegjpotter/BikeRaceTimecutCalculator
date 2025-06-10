@@ -17,7 +17,7 @@ Alternatively, you can use `curl`:
 
     curl -X POST https://bikeracetimecutcalculator.onrender.com/calculate \
          -H 'Content-type:application/json' \
-         -d '{"raceDuration": 03:45:00, "percentageTimeCut": 12}' | json
+         -d '{"raceDuration": "03:45:00", "percentageTimeCut": 12}' | json
 
 Ensure that you install the `json` tool to format/pretty print the Response.
 
@@ -26,8 +26,8 @@ Ensure that you install the `json` tool to format/pretty print the Response.
 You should get a response that looks like this:
 
     {
-      "maximumGapToWinner": 00:45:00,
-      "maximumRaceTime": 4:30:00,
+      "maximumGapToWinner": "00:45:00",
+      "maximumRaceTime": "04:30:00",
       "errorMessage": ""
     }
 
