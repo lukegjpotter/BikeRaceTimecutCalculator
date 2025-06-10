@@ -3,6 +3,8 @@ package com.lukegjpotter.tools.bikeracetimecutcalculator.controller;
 import com.lukegjpotter.tools.bikeracetimecutcalculator.dto.RaceFinishRequestRecord;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -118,6 +120,25 @@ class BikeRaceTimecutCalculatorControllerTest {
     }
 
     @Test
+    void testCalculate_parsingExceptions_TextAsPercentageTimeCut() throws JSONException {
+        JSONObject raceFinishRequest = new JSONObject();
+        raceFinishRequest.put("raceDuration", "04:12:09");
+        raceFinishRequest.put("percentageTimeCut", "Ligma");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(raceFinishRequest.toString())
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "maximumGapToWinner", nullValue(),
+                        "maximumRaceDuration", nullValue(),
+                        "errorMessage", nullValue());
+    }
+
+    @Test
     void testCalculate_negativeNumbers_raceDuration() {
         given()
                 .contentType(ContentType.JSON)
@@ -147,5 +168,37 @@ class BikeRaceTimecutCalculatorControllerTest {
                         "errorMessage", is("The value for the percentageTimeCut must be positive, you supplied -8."));
     }
 
-    // ToDo tests: nulls
+    @Test
+    void testCalculate_nullValues_nullDuration() {
+        given()
+                .contentType(ContentType.JSON)
+                .body(new RaceFinishRequestRecord(null, 8))
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "maximumGapToWinner", nullValue(),
+                        "maximumRaceDuration", nullValue(),
+                        "errorMessage", is("text"));
+    }
+
+    @Test
+    void testCalculate_nullValues_nullPercentageTimeCut() throws JSONException {
+        JSONObject raceFinishRequest = new JSONObject();
+        raceFinishRequest.put("raceDuration", "04:12:09");
+        raceFinishRequest.put("percentageTimeCut", null);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(raceFinishRequest.toString())
+                .when()
+                .post("/calculate")
+                .then()
+                .statusCode(HttpStatus.SC_BAD_REQUEST)
+                .body(
+                        "maximumGapToWinner", nullValue(),
+                        "maximumRaceDuration", nullValue(),
+                        "errorMessage", is("The value for the percentageTimeCut must be positive, you supplied 0."));
+    }
 }
