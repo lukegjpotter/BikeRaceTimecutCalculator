@@ -8,8 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "VAM to WKG Converter", version = "0.0.1",
-        description = "A RESTful Service take takes some parameters and then generates the WKG from the supplied VAM."))
+@OpenAPIDefinition(info = @Info(title = "Bike Race Timecut Calculator", version = "0.0.1",
+        description = "A RESTful Service take takes some parameters and then generates the Time Cut for a Bike Race."))
 public class BikeRaceTimecutCalculatorApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(BikeRaceTimecutCalculatorApplication.class);
