@@ -11,8 +11,7 @@ To create a simple tool to calculate the maximum time gap, aka the Time Cut for 
 ## Deployed on Render
 
 This service is deployed live on Render, to use it check out this Postman
-Collection: [VAM to WKG Converter](https://www.postman.com/bold-moon-552911/bikeracetimecutcalculator/collection/4v3fjg6/bikeracetimecutcalculator?action=share&creator=3947605&active-environment=3947605-ab751e14-7e85-4c82-b013-6e636cba23a8){:
-target="_blank"}.  
+Collection: [VAM to WKG Converter](https://www.postman.com/bold-moon-552911/bikeracetimecutcalculator/collection/4v3fjg6/bikeracetimecutcalculator?action=share&creator=3947605&active-environment=3947605-ab751e14-7e85-4c82-b013-6e636cba23a8).
 It has a prefilled JSON Body ready to receive your inputs.
 
 Alternatively, you can use `curl`:
@@ -36,7 +35,7 @@ You should get a response that looks like this:
 ## Swagger / Spring-Doc / OpenDoc
 
 To view the Swagger UI, click this link to view it on
-Render: [Swagger UI](https://bikeracetimecutcalculator.onrender.com/swagger-ui/index.html){:target="_blank"}.
+Render: [Swagger UI](https://bikeracetimecutcalculator.onrender.com/swagger-ui/index.html).
 
 ## Build, Run and Test
 
