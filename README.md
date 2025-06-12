@@ -60,14 +60,20 @@ Build the Docker Image with the following Command:
 
     docker build --pull -t bike-race-timecut-calculator:latest .
 
-Run the Image as a Container with Docker with the following Command:
+This command presumes that you are in the directory with this application's Dockerfile.  
+You can see the built Image with `docker image ls`.  
+Later you can remove the Image with `docker image rm <image id sha>`.
+
+Run the Image as a Docker Container with the following Command:
 
     docker run --name bike-race-timecut-calculator \
        -p 8080:8080 \
        -d --rm bike-race-timecut-calculator:latest
 
-You can see the Container running with the `docker container ls`,  
-and stop it with `docker container stop bike-race-timecut-calculator`.
+You can see the Container running with `docker ps` or `docker container ls`,  
+Although, the `run` command has the `--rm` flag set, so the container will remove itself after you stop it, so it will
+not be shown in `conatiner ls` after you stop the Container.  
+Stop it with `docker stop bike-race-timecut-calculator`.
 
 ### Test with Postman and curl
 
